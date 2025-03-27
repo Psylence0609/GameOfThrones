@@ -2,6 +2,7 @@ from langchain_ollama import ChatOllama
 from config import MODEL, GEMINI_API_KEY, GEMINI_MODEL, GROQ_API_KEY, GROQ_MODEL
 from google import genai
 from langchain_groq import ChatGroq
+import time
 
 def get_llm():
     """
@@ -64,6 +65,7 @@ def request_ollama(prompt):
     else:
         try:
             res = llm.invoke(prompt)
+            time.sleep(5)
             return res.content
         except Exception as e:
             print(f"Error generating content from Ollama: {e}")

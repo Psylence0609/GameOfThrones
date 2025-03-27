@@ -81,10 +81,10 @@ def run_simulation_regularly():
     """
     Run the simulation regularly.
     """
-    while True:
-        politicians_create_posts()
-        citizens_decide_votes()
-        time.sleep(10)
+    # while True:
+    politicians_create_posts()
+    citizens_decide_votes()
+    time.sleep(10)
 
 def get_simulation_state():
     """

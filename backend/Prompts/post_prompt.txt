@@ -20,8 +20,8 @@
 
         ### Example of a correct response:
         {{
-            1: String1,
-            2: String2,
+            "1": <String1>,
+            "2": <String2>,
             .
             .
             .
