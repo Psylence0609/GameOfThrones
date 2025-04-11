@@ -30,7 +30,7 @@ export const fetchPosts = async () => {
 
 export const runSimulationStep = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/run-step`, {
+    const response = await fetch(`${BASE_URL}/simulate`, {
       method: 'POST',
     });
     if (!response.ok) {

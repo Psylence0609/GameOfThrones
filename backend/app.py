@@ -4,28 +4,20 @@ from routes import api_bp
 from utils import initialize_simulation, run_simulation_regularly
 from socket_manager import socketio
 import threading
-import os
 
-app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')  
-CORS(app, resources={r"/*": {"origins": "*"}})
+app = Flask(__name__)
+# app.config['SECRET_KEY'] = 'secret!'  # Replace with a real secret key in production
+CORS(app, supports_credentials=True, resources={r"/api/*": {"origins": "http://localhost:3000"}})
+socketio.init_app(app)  # Initialize SocketIO with the app
 
-socketio.init_app(app)
 app.register_blueprint(api_bp, url_prefix='/api')
 
 initialize_simulation()
 
-simulation_thread = threading.Thread(target=run_simulation_regularly)
-simulation_thread.daemon = True
-simulation_thread.start()
-
-# Optional: Serve React app if deploying full-stack
-@app.route('/')
-@app.route('/<path:path>')
-def serve(path=''):
-    if path != "" and os.path.exists(app.static_folder + '/' + path):
-        return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.static_folder, 'index.html')
+# Start the regular simulation in a separate thread
+# simulation_thread = threading.Thread(target=run_simulation_regularly)
+# simulation_thread.daemon = True  # Allow the thread to exit when the main thread exits
+# simulation_thread.start()
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, port=5001)

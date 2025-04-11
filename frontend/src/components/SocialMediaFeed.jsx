@@ -5,7 +5,7 @@ const SocialMediaFeed = ({ posts, selectedPolitician }) => {
   // Filter posts based on the selected politician
   const filteredPosts = selectedPolitician === 'all' 
     ? posts 
-    : posts.filter(post => post.politician === selectedPolitician);
+    : posts.filter(post => post.metadata.name === selectedPolitician);
 
   return (
     <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2 scroll-parchment p-4">
@@ -17,21 +17,10 @@ const SocialMediaFeed = ({ posts, selectedPolitician }) => {
         filteredPosts.map((post, index) => (
           <div key={index} className="bg-got-black/50 border border-got-gold/60 p-4 rounded">
             <div className="flex justify-between items-start mb-2">
-              <h4 className="font-medieval text-got-gold">{post.author}</h4>
-              <span className="text-xs text-got-gray">{post.timestamp}</span>
+              <h4 className="font-medieval text-got-gold">{post.metadata.name}</h4>
+              <span className="text-xs text-got-gold">{post.metadata.date_time}</span>
             </div>
             <p className="text-got-ivory mb-2">{post.content}</p>
-            <div className="flex justify-between items-center mt-3 pt-3 border-t border-got-gold/30">
-              <span className="text-xs text-got-gray">{post.politician}</span>
-              <div className="flex space-x-3">
-                <button className="text-got-gold hover:text-got-darkgold transition-colors">
-                  ♥ Like
-                </button>
-                <button className="text-got-gold hover:text-got-darkgold transition-colors">
-                  ✉ Respond
-                </button>
-              </div>
-            </div>
           </div>
         ))
       )}
