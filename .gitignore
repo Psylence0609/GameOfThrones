@@ -3,4 +3,5 @@ currentAffairs.json
 Test.*
 Test/
 posts*
-logs/*
+logs
+frontend/node_modules/*
