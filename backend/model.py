@@ -46,27 +46,41 @@ def get_gemini_llm():
     client = genai.Client(api_key=GEMINI_API_KEY)
 
     return client
-    
-
-def request_ollama(prompt):
+        
+def request_ollama(prompt, max_retries=5, base_delay=2):
     """
-    Function to request a response from the LLM (Ollama or Gemini based on model configuration).
+    Function to request a response from the LLM with exponential backoff handling for rate limits.
     """
     llm = get_llm()
-    if isinstance(llm, genai.Client): 
-        try:
-            response = llm.models.generate_content(
-                model=GEMINI_MODEL, contents=prompt
-            )
-            return response.text
-        except Exception as e:
-            print(f"Error generating content from Gemini: {e}")
-            return None
-    else:
-        try:
-            res = llm.invoke(prompt)
-            time.sleep(5)
-            return res.content
-        except Exception as e:
-            print(f"Error generating content from Ollama: {e}")
-            return None
+
+    for attempt in range(max_retries):
+        if isinstance(llm, genai.Client): 
+            try:
+                response = llm.models.generate_content(
+                    model=GEMINI_MODEL, contents=prompt
+                )
+                return response.text
+            except Exception as e:
+                if "Too Many Requests" in str(e) or "429" in str(e):
+                    wait_time = base_delay * (2 ** attempt) + random.uniform(0, 1)
+                    print(f"Rate limit hit for Gemini. Retrying in {wait_time:.2f}s (Attempt {attempt + 1})...")
+                    time.sleep(wait_time)
+                else:
+                    print(f"Error generating content from Gemini: {e}")
+                    return None
+        else:
+            try:
+                res = llm.invoke(prompt)
+                time.sleep(5)
+                return res.content
+            except Exception as e:
+                if "Too Many Requests" in str(e) or "429" in str(e):
+                    wait_time = base_delay * (2 ** attempt) + random.uniform(0, 1)
+                    print(f"Rate limit hit for Ollama. Retrying in {wait_time:.2f}s (Attempt {attempt + 1})...")
+                    time.sleep(wait_time)
+                else:
+                    print(f"Error generating content from Ollama: {e}")
+                    return None
+
+    raise Exception("Exceeded max retries due to rate limiting.")
+
