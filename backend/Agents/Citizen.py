@@ -76,8 +76,6 @@ class Citizen(Person):
         # Search vector store using the generated query
         try:
             results = vectorStore.queryStore(response, k)
-            results = results['documents'][0]
-            # print("RESULTS: ", results)
             logger.info(f"Retrieved {len(results)} results from vector store.")
             return results
         except Exception as e:
@@ -134,7 +132,7 @@ class Citizen(Person):
         if response in politician_names:
             logger.info(f"{self.name} voted for {response}")
             self.vote_decision = response
-            self.remember_instance({"vote": response, "because": because})
+            self.remember_instance({"vote": response, "because": because, "posts": search_results})
             logger.info(f"CITIZEN: {self.name} voted for {response} because {because}")
             return response
         else:

@@ -2,6 +2,13 @@ from Database.ChromaDBConnection import ChromaDBConnection
 from logger import logger
 from config import CONNECTION_NAME
 from langchain_ollama import OllamaEmbeddings
+
+# BM25
+import nltk
+nltk.download('punkt')
+from nltk.tokenize import word_tokenize
+from rank_bm25 import BM25Okapi
+
 LLM_MODEL = 'llama3.2'
 EMBEDDING_MODEL = 'nomic-embed-text'
 
@@ -30,8 +37,20 @@ class VectorStore:
     
     def queryStore(self, query, k):
         vector = self.get_embeddings().embed_query(query)
-        result = self.search_vectorstore(vector, 2)
-        return result
+        result = self.search_vectorstore(vector, 2 * k)
+        docs = result['documents'][0]
+
+        #Perform BM25 
+        tokenized_docs = [word_tokenize(doc.lower()) for doc in docs]
+
+        bm25 = BM25Okapi(tokenized_docs)
+
+        tokenized_query = word_tokenize(query.lower())
+        scores = bm25.get_scores(tokenized_query)
+
+        ranked_docs = [doc for _, doc in sorted(zip(scores, docs), reverse=True)]
+
+        return ranked_docs[:k]
     
     def get_all_documents(self):
         try:
