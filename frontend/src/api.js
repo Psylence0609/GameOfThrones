@@ -42,3 +42,21 @@ export const runSimulationStep = async () => {
     return { success: false };
   }
 };
+
+export const addCitizen = async (citizenData) => {
+  console.log("Adding citizen:", citizenData);
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ success: true, message: "Citizen added successfully" });
+    }, 500);
+  });
+};
+
+export const addPolitician = async (politicianData) => {
+  console.log("Adding politician:", politicianData);
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ success: true, message: "Politician added successfully" });
+    }, 500);
+  });
+};

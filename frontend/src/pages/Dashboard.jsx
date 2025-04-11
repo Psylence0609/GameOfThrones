@@ -4,6 +4,10 @@ import { runSimulationStep, fetchSimulationState, fetchPosts } from '../api';
 import CitizenCard from '../components/CitizenCard';
 import PoliticianCard from '../components/PoliticianCard';
 import SocialMediaFeed from '../components/SocialMediaFeed';
+import AddCitizenForm from '../components/AddCitizenForm';
+import AddPoliticianForm from '../components/AddPoliticianForm';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
 import ActionNotification from '../components/ActionNotification';
 import Header from '../components/Header';
 
@@ -17,6 +21,9 @@ const Dashboard = () => {
   const [posts, setPosts] = useState([]);
   const [actionQueue, setActionQueue] = useState([]);
   const [selectedPolitician, setSelectedPolitician] = useState('all');
+  const [simulationCount, setSimulationCount] = useState(0);
+  const [showAddCitizen, setShowAddCitizen] = useState(false);
+  const [showAddPolitician, setShowAddPolitician] = useState(false);
 
   const loadData = async () => {
     try {
@@ -64,9 +71,8 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen pb-16">
       <Header />
-
+      
       <div className="container mx-auto px-4 pt-24">
-        {/* Vote Counts & Controls */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
           <div className="card-medieval p-4 mb-4 md:mb-0 w-full md:w-auto">
             <h3 className="text-xl font-cinzel text-got-gold mb-2">Current Power Standings</h3>
@@ -79,82 +85,101 @@ const Dashboard = () => {
               ))}
             </div>
           </div>
-
-          <button
-            onClick={handleRunStep}
-            className="px-6 py-3 bg-got-gold hover:bg-got-darkgold text-got-black font-cinzel transition-colors"
-          >
-            Advance The Game
-          </button>
+          
+          <div className="flex items-center gap-4">
+            <div className="card-medieval p-2 text-center">
+              <div className="text-sm text-got-ivory">Simulations Run</div>
+              <div className="text-xl font-cinzel text-got-gold">{simulationCount}</div>
+            </div>
+            <button 
+              onClick={handleRunStep} 
+              className="px-6 py-3 bg-got-gold hover:bg-got-darkgold text-got-black font-cinzel transition-colors"
+            >
+              Advance The Game
+            </button>
+          </div>
         </div>
-
-        {/* Main Content */}
+        
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Citizens & Politicians */}
           <div className="card-medieval p-6">
             <h2 className="text-2xl font-cinzel text-got-gold mb-6">Characters of the Realm</h2>
-
-            <h3 className="text-xl font-cinzel text-got-gold mb-4">The Smallfolk</h3>
-            {simulationState.citizens.length === 0 ? (
-              <p className="text-got-ivory">No citizens found.</p>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                {simulationState.citizens.map((citizen) => (
-                  <CitizenCard key={citizen.name} citizen={citizen} />
-                ))}
-              </div>
-            )}
-
-            <h3 className="text-xl font-cinzel text-got-gold mb-4">The Great Lords of Westeros</h3>
-            {simulationState.politicians.length === 0 ? (
-              <p className="text-got-ivory">No politicians available.</p>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {simulationState.politicians.map((politician) => (
-                  <PoliticianCard key={politician.name} politician={politician} />
-                ))}
-              </div>
-            )}
+            
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-cinzel text-got-gold">The Smallfolk</h3>
+              <Button 
+                variant="ghost" 
+                size="icon"
+                className="text-got-gold hover:bg-got-gold/20 rounded-full"
+                onClick={() => setShowAddCitizen(true)}
+                aria-label="Add Citizen"
+              >
+                <Plus className="h-5 w-5" />
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+              {simulationState.citizens.map((citizen) => (
+                <CitizenCard key={citizen.name} citizen={citizen} />
+              ))}
+            </div>
+            
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-cinzel text-got-gold">The Great Lords of Westeros</h3>
+              <Button 
+                variant="ghost" 
+                size="icon"
+                className="text-got-gold hover:bg-got-gold/20 rounded-full"
+                onClick={() => setShowAddPolitician(true)}
+                aria-label="Add Politician"
+              >
+                <Plus className="h-5 w-5" />
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {simulationState.politicians.map((politician) => (
+                <PoliticianCard key={politician.name} politician={politician} />
+              ))}
+            </div>
           </div>
-
-          {/* Social Media Feed */}
+          
           <div className="card-medieval p-6">
             <h2 className="text-2xl font-cinzel text-got-gold mb-6">Ravens from the Realm</h2>
-
-            {/* Filter */}
+            
             <div className="mb-4">
               <div className="flex flex-wrap gap-2">
-                <button
+                <button 
                   onClick={() => setSelectedPolitician('all')}
-                  className={`px-3 py-1 text-sm font-medieval ${
-                    selectedPolitician === 'all'
-                      ? 'bg-got-gold text-got-black'
-                      : 'bg-got-darkgray text-got-ivory border border-got-gold'
-                  }`}
+                  className={`px-3 py-1 text-sm font-medieval ${selectedPolitician === 'all' 
+                    ? 'bg-got-gold text-got-black' 
+                    : 'bg-got-darkgray text-got-ivory border border-got-gold'}`}
                 >
                   All Houses
                 </button>
-                {simulationState.politicians.map((p) => (
-                  <button
-                    key={p.name}
-                    onClick={() => setSelectedPolitician(p.name)}
-                    className={`px-3 py-1 text-sm font-medieval ${
-                      selectedPolitician === p.name
-                        ? 'bg-got-gold text-got-black'
-                        : 'bg-got-darkgray text-got-ivory border border-got-gold'
-                    }`}
+                
+                {simulationState.politicians.map(politician => (
+                  <button 
+                    key={politician.name}
+                    onClick={() => setSelectedPolitician(politician.name)}
+                    className={`px-3 py-1 text-sm font-medieval ${selectedPolitician === politician.name 
+                      ? 'bg-got-gold text-got-black' 
+                      : 'bg-got-darkgray text-got-ivory border border-got-gold'}`}
                   >
-                    {p.name}
+                    House {politician.name}
                   </button>
                 ))}
               </div>
             </div>
-
-            <SocialMediaFeed posts={posts} selectedPolitician={selectedPolitician} />
+            
+            <SocialMediaFeed 
+              posts={posts} 
+              selectedPolitician={selectedPolitician}
+            />
           </div>
         </div>
       </div>
-
+      
+      <AddCitizenForm open={showAddCitizen} onOpenChange={setShowAddCitizen} />
+      <AddPoliticianForm open={showAddPolitician} onOpenChange={setShowAddPolitician} />
+      
       <ActionNotification actionQueue={actionQueue} setActionQueue={setActionQueue} />
     </div>
   );
