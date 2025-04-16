@@ -5,7 +5,7 @@ from langchain_ollama import OllamaEmbeddings
 
 # BM25
 import nltk
-nltk.download('punkt')
+nltk.download('punkt_tab')
 from nltk.tokenize import word_tokenize
 from rank_bm25 import BM25Okapi
 

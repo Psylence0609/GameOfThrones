@@ -1,0 +1,114 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 13% 18%;
+    --foreground: 45 29% 97%;
+
+    --card: 220 13% 23%;
+    --card-foreground: 45 29% 97%;
+
+    --popover: 220 13% 23%;
+    --popover-foreground: 45 29% 97%;
+
+    --primary: 39 47% 56%;
+    --primary-foreground: 220 13% 18%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 45 29% 97%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 20 70% 50%;
+    --accent-foreground: 45 29% 97%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 45 29% 97%;
+
+    --border: 39 47% 36%;
+    --input: 240 3.7% 15.9%;
+    --ring: 39 47% 56%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-got-black text-got-ivory;
+    background-image: url('https://images.unsplash.com/photo-1566041510639-8d95a2490bfb?q=80&w=1374&auto=format&fit=crop');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #1A1F2C;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-cinzel;
+  }
+  
+  p, span, div, button {
+    @apply font-lora;
+  }
+}
+
+.scroll-parchment {
+  background-color: rgba(237, 228, 211, 0.9);
+  border-radius: 8px;
+  border: 1px solid #C6A656;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-medieval {
+  background-color: rgba(26, 31, 44, 0.85);
+  border: 1px solid #C6A656;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.header-medieval {
+  background: linear-gradient(to bottom, rgba(198, 166, 86, 0.1), rgba(198, 166, 86, 0.05));
+  border-bottom: 1px solid rgba(198, 166, 86, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.gold-text {
+  color: #C6A656;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.5s ease-out forwards;
+}
