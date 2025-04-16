@@ -13,19 +13,19 @@ const Header = () => {
         <nav>
           <ul className="flex space-x-6">
             <li>
-              <Link to="/dashboard" className="font-medieval text-got-ivory hover:text-got-gold transition-colors">
+              <Link to="/dashboard" className="font-medieval text-got-black hover:text-got-gold transition-colors">
                 The Realm
               </Link>
             </li>
             <li>
-              <a href="#" className="font-medieval text-got-ivory hover:text-got-gold transition-colors">
+              <a href="#" className="font-medieval text-got-black hover:text-got-gold transition-colors">
               Lords
               </a>
             </li>
             <li>
-              <a href="#" className="font-medieval text-got-ivory hover:text-got-gold transition-colors">
+              <Link to="/crown-summary" className="font-medieval text-got-black hover:text-got-gold transition-colors">
                 The Crown
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

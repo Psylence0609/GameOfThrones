@@ -20,6 +20,7 @@ const socket = io('http://localhost:5001', {
 const Dashboard = () => {
   const [simulationState, setSimulationState] = useState({ citizens: [], politicians: [], vote_counts: {} });
   const [posts, setPosts] = useState([]);
+  const [iterations, setIterations] = useState(1);
   const [actionQueue, setActionQueue] = useState([]);
   const [selectedPolitician, setSelectedPolitician] = useState('all');
   const [simulationCount, setSimulationCount] = useState(0);
@@ -64,9 +65,9 @@ const Dashboard = () => {
   const handleRunStep = async () => {
     setIsSimulating(true);
     try {
-      await runSimulationStep();
+      await runSimulationStep(iterations);
       await loadData();
-      setSimulationCount(prev => prev + 1);
+      setSimulationCount(prev => prev + iterations);
     } catch (error) {
       console.error("Error running simulation step:", error);
     } finally {
@@ -93,9 +94,22 @@ const Dashboard = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="card-medieval p-2 text-center">
-              <div className="text-sm text-got-ivory">Simulations Run</div>
-              <div className="text-xl font-cinzel text-got-gold">{simulationCount}</div>
+            <div className="bg-got-gold py-2.5 text-center">
+              <label className="px-4 py-3 text-sm text-got-black font-cinzel mb-1">Iterations: </label>
+              
+              <input
+                type="number"
+                min="1"
+                value={iterations}
+                onChange={(e) => setIterations(Number(e.target.value))}
+                className="bg-got-gold text-got-black border border-got-gold w-10 text-center"
+              />
+            </div>
+            <div className="bg-got-gold p-2 text-center">
+              <div className="px-6 py-1.5 font-cinzel text-sm text-got-black">
+                Simulations Run: {simulationCount} 
+              </div>
+              {/* <div className="text-xl font-cinzel text-got-gold">{simulationCount}</div> */}
             </div>
             <div className="flex items-center">
               <button
