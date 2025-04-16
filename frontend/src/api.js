@@ -28,10 +28,12 @@ export const fetchPosts = async () => {
   }
 };
 
-export const runSimulationStep = async () => {
+export const runSimulationStep = async (iterations = 1) => {
   try {
     const response = await fetch(`${BASE_URL}/simulate`, {
       method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ iterations })
     });
     if (!response.ok) {
       throw new Error('Failed to run simulation step');
@@ -59,4 +61,15 @@ export const addPolitician = async (politicianData) => {
       resolve({ success: true, message: "Politician added successfully" });
     }, 500);
   });
+};
+
+export const fetchCrownSummary = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/crown_summary`);
+    if (!response.ok) throw new Error("Failed to fetch crown summary");
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching crown summary:", error);
+    return { winner: null, summary: "Error fetching summary." };
+  }
 };
