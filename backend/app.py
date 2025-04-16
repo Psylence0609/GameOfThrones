@@ -1,8 +1,8 @@
-from flask import Flask
+from flask import Flask, send_from_directory
 from flask_cors import CORS
 from routes import api_bp
 from utils import initialize_simulation, run_simulation_regularly
-from socket_manager import socketio  # Import socketio instance
+from socket_manager import socketio
 import threading
 
 app = Flask(__name__)
@@ -12,7 +12,6 @@ socketio.init_app(app)  # Initialize SocketIO with the app
 
 app.register_blueprint(api_bp, url_prefix='/api')
 
-# Initialize the simulation
 initialize_simulation()
 
 # Start the regular simulation in a separate thread
