@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import ActionNotification from '../components/ActionNotification';
 import Header from '../components/Header';
+import TargaryenSpinner from '../components/TargaryenSpinner';
 
 const socket = io('http://localhost:5001', {
   reconnectionAttempts: 3,
@@ -24,6 +25,7 @@ const Dashboard = () => {
   const [simulationCount, setSimulationCount] = useState(0);
   const [showAddCitizen, setShowAddCitizen] = useState(false);
   const [showAddPolitician, setShowAddPolitician] = useState(false);
+  const [isSimulating, setIsSimulating] = useState(false);
 
   const loadData = async () => {
     try {
@@ -60,18 +62,22 @@ const Dashboard = () => {
   }, []);
 
   const handleRunStep = async () => {
+    setIsSimulating(true);
     try {
       await runSimulationStep();
-      loadData(); // Refresh state immediately after step
+      await loadData();
+      setSimulationCount(prev => prev + 1);
     } catch (error) {
       console.error("Error running simulation step:", error);
+    } finally {
+      setIsSimulating(false);
     }
   };
 
   return (
     <div className="min-h-screen pb-16">
       <Header />
-      
+
       <div className="container mx-auto px-4 pt-24">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
           <div className="card-medieval p-4 mb-4 md:mb-0 w-full md:w-auto">
@@ -85,29 +91,33 @@ const Dashboard = () => {
               ))}
             </div>
           </div>
-          
+
           <div className="flex items-center gap-4">
             <div className="card-medieval p-2 text-center">
               <div className="text-sm text-got-ivory">Simulations Run</div>
               <div className="text-xl font-cinzel text-got-gold">{simulationCount}</div>
             </div>
-            <button 
-              onClick={handleRunStep} 
-              className="px-6 py-3 bg-got-gold hover:bg-got-darkgold text-got-black font-cinzel transition-colors"
-            >
-              Advance The Game
-            </button>
+            <div className="flex items-center">
+              <button
+                onClick={handleRunStep}
+                className="px-6 py-3 bg-got-gold hover:bg-got-darkgold text-got-black font-cinzel transition-colors disabled:opacity-50"
+                disabled={isSimulating}
+              >
+                Advance The Game
+              </button>
+              {isSimulating && <TargaryenSpinner />}
+            </div>
           </div>
         </div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="card-medieval p-6">
             <h2 className="text-2xl font-cinzel text-got-gold mb-6">Characters of the Realm</h2>
-            
+
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-cinzel text-got-gold">The Smallfolk</h3>
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="icon"
                 className="text-got-gold hover:bg-got-gold/20 rounded-full"
                 onClick={() => setShowAddCitizen(true)}
@@ -121,11 +131,11 @@ const Dashboard = () => {
                 <CitizenCard key={citizen.name} citizen={citizen} />
               ))}
             </div>
-            
+
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-cinzel text-got-gold">The Great Lords of Westeros</h3>
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="icon"
                 className="text-got-gold hover:bg-got-gold/20 rounded-full"
                 onClick={() => setShowAddPolitician(true)}
@@ -140,46 +150,46 @@ const Dashboard = () => {
               ))}
             </div>
           </div>
-          
+
           <div className="card-medieval p-6">
             <h2 className="text-2xl font-cinzel text-got-gold mb-6">Ravens from the Realm</h2>
-            
+
             <div className="mb-4">
               <div className="flex flex-wrap gap-2">
-                <button 
+                <button
                   onClick={() => setSelectedPolitician('all')}
-                  className={`px-3 py-1 text-sm font-medieval ${selectedPolitician === 'all' 
-                    ? 'bg-got-gold text-got-black' 
+                  className={`px-3 py-1 text-sm font-medieval ${selectedPolitician === 'all'
+                    ? 'bg-got-gold text-got-black'
                     : 'bg-got-darkgray text-got-ivory border border-got-gold'}`}
                 >
                   All Houses
                 </button>
-                
+
                 {simulationState.politicians.map(politician => (
-                  <button 
+                  <button
                     key={politician.name}
                     onClick={() => setSelectedPolitician(politician.name)}
-                    className={`px-3 py-1 text-sm font-medieval ${selectedPolitician === politician.name 
-                      ? 'bg-got-gold text-got-black' 
+                    className={`px-3 py-1 text-sm font-medieval ${selectedPolitician === politician.name
+                      ? 'bg-got-gold text-got-black'
                       : 'bg-got-darkgray text-got-ivory border border-got-gold'}`}
                   >
-                    House {politician.name}
+                    Lord {politician.name}
                   </button>
                 ))}
               </div>
             </div>
-            
-            <SocialMediaFeed 
-              posts={posts} 
+
+            <SocialMediaFeed
+              posts={posts}
               selectedPolitician={selectedPolitician}
             />
           </div>
         </div>
       </div>
-      
+
       <AddCitizenForm open={showAddCitizen} onOpenChange={setShowAddCitizen} />
       <AddPoliticianForm open={showAddPolitician} onOpenChange={setShowAddPolitician} />
-      
+
       <ActionNotification actionQueue={actionQueue} setActionQueue={setActionQueue} />
     </div>
   );

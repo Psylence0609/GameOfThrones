@@ -19,7 +19,7 @@ const Header = () => {
             </li>
             <li>
               <a href="#" className="font-medieval text-got-ivory hover:text-got-gold transition-colors">
-                Houses
+              Lords
               </a>
             </li>
             <li>

@@ -3,6 +3,7 @@ from config import MODEL, GEMINI_API_KEY, GEMINI_MODEL, GROQ_API_KEY, GROQ_MODEL
 from google import genai
 from langchain_groq import ChatGroq
 import time
+import random
 
 def get_llm():
     """
