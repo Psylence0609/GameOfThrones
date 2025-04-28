@@ -1,5 +1,5 @@
 # 🎯 **GameOfThrones**  
-![image](https://github.com/user-attachments/assets/7690149f-53ff-40f2-b0c5-12d6d06ee8e4)
+![image](https://github.com/user-attachments/assets/16c87187-3466-474d-a893-790d2f45ee9e)
 
 
 ## 🚀 **Inspiration**  
@@ -16,8 +16,12 @@ GameOfThrones is a full-stack web app that simulates the complex dynamics of pol
 - 📊 **Real-Time Simulation**: See political strategies unfold and voter behavior evolve in real-time.  
 - ✨ **Goal**: To understand how social media shapes modern political influence through direct interaction and dynamic feedback.  
 
-![image](https://github.com/user-attachments/assets/597bf0ba-fd3b-4d33-8fd6-e04f89f06305)
+![image](https://github.com/user-attachments/assets/efe7ea2c-0998-4076-bb20-07968904e09c)
 
+---
+Shows why a particular politician won the elections (based on people's memories):
+---
+![image](https://github.com/user-attachments/assets/a6646755-5b27-4303-aed1-28042430a87c)
 ---
 
 ## 🛠️ How we Built It
@@ -33,11 +37,14 @@ graph TD;
     F --> A;
     C --> G[Multi-LLM Support - Claude, OpenAI, Gemini, Ollama];
 ```
+![image](https://github.com/user-attachments/assets/1b681af5-ba45-4cd4-80d4-f8718da2054d)
+---
+
 ## 🛠️ **Tech Stack**  
 
 | **Component** | **Tech Used** | **Purpose** |
 |-------------|---------------|------------|
-| **Frontend** | React, MaterialUI, Socket.IO | Responsive UI, real-time updates |
+| **Frontend** | React, Vite,  Socket.IO | Responsive UI, real-time updates |
 | **Backend** | Flask, Python | State management, API handling |
 | **Agent Framework** | Customer Framework over Langchain | Decision-making and content generation for agents |
 | **Search** | ChromaDB, BM25 | Vector search and ranking for relevance |
@@ -76,7 +83,7 @@ Socket.IO for real-time updates—see how voter decisions change instantly!
 
 ### 🤖 LLM Integration
 ---
-Multi-LLM support with Claude, OpenAI, Gemini, Ollama, and Groq.
+Multi-LLM support with OpenAI, Gemini, Ollama, and Groq.
 
 Diverse language models generate realistic political content and responses.
 
@@ -84,7 +91,7 @@ Diverse language models generate realistic political content and responses.
 ---
 Custom Agentic Framework
 
-First time building a complex agent framework from scratch—had to make sure agents responded naturally to social media content.
+Built a complex agent framework from scratch—had to make sure agents responded naturally to social media content.
 
 - Balancing Personalities
 
@@ -96,7 +103,7 @@ First time building a complex agent framework from scratch—had to make sure ag
 
 - Ranking Complexity
 
-> Fine-tuning BM25 to rank posts accurately based on voter preferences.
+> BM25 to rank posts accurately based on voter preferences.
 
 ## 🏆 Accomplishments we're Proud Of
 ✅ Built a dynamic simulation where agents' personalities drive meaningful political discourse. \
@@ -115,7 +122,6 @@ First time building a complex agent framework from scratch—had to make sure ag
 📊 Advanced Analytics – Track how different strategies influence voter behavior over time. \
 🎮 Multiplayer Mode – Let multiple users run campaigns and compete for voter influence. \
 📝 AI-Generated Content – Use more advanced AI to create diverse, nuanced political posts. \
-📱 Cross-Platform Deployment – Bring GameOfThrones to mobile using Flutter (yes, we might have to learn Flutter for this 😎). \
 
 ## 🎯 Why GameOfThrones Matters
 GameOfThrones isn’t just a game—it’s a political sandbox where students can experiment, analyze, and learn how modern political influence works. Social media has changed politics forever, and GameOfThrones gives you a front-row seat to that transformation.
