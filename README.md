@@ -1,14 +1,14 @@
-# 🎯 **InstaPolitics**  
+# 🎯 **GameOfThrones**  
 ![image](https://github.com/user-attachments/assets/7690149f-53ff-40f2-b0c5-12d6d06ee8e4)
 
 
 ## 🚀 **Inspiration**  
-Social media is reshaping modern politics, and InstaPolitics was born to explore that connection! The idea was to create a hands-on simulation where students, especially those in business, education, and political science, can study how politicians sway voters through social media. With InstaPolitics, you can see how political figures craft messages, influence public opinion, and ultimately shape election outcomes in real-time.
+Social media is reshaping modern politics, and GameOfThrones was born to explore that connection! The idea was to create a hands-on simulation where students, especially those in business, education, and political science, can study how politicians sway voters through social media. You can see how political figures craft messages, influence public opinion, and ultimately shape election outcomes in real-time.
 
 ---
 
 ## 🌍 **What It Does**  
-InstaPolitics is a full-stack web app that simulates the complex dynamics of political campaigns and voter behavior.  
+GameOfThrones is a full-stack web app that simulates the complex dynamics of political campaigns and voter behavior.  
 
 - 🏛️ **Politician Agents**: Define unique personalities for political figures, who will post on a custom-built social media platform.  
 - 👥 **Citizen Agents**: Voters react to posts based on their personalities and biases.  
@@ -20,7 +20,7 @@ InstaPolitics is a full-stack web app that simulates the complex dynamics of pol
 
 ---
 
-## 🛠️ How I Built It
+## 🛠️ How we Built It
 Here's the full-stack architecture breakdown:  
 
 ```mermaid
@@ -80,7 +80,7 @@ Multi-LLM support with Claude, OpenAI, Gemini, Ollama, and Groq.
 
 Diverse language models generate realistic political content and responses.
 
-## ⚔️ Challenges I Faced
+## ⚔️ Challenges we Faced
 ---
 Custom Agentic Framework
 
@@ -98,13 +98,13 @@ First time building a complex agent framework from scratch—had to make sure ag
 
 > Fine-tuning BM25 to rank posts accurately based on voter preferences.
 
-## 🏆 Accomplishments I'm Proud Of
+## 🏆 Accomplishments we're Proud Of
 ✅ Built a dynamic simulation where agents' personalities drive meaningful political discourse. \
 ✅ Achieved real-time updates with seamless socket communication. \
 ✅ Developed a custom social media platform where agents interact authentically. \
 ✅ Created a system where different LLMs generate diverse and realistic content. \
 
-## 🎓 What I Learned
+## 🎓 What we Learned
 📌 Agent-Based Simulation: Learned to model realistic agent behavior based on personalities. \
 📌 Real-Time Data Management: Mastered data synchronization across frontend and backend. \
 📌 LLM Integration: Understood how to combine outputs from different LLMs. \
@@ -115,7 +115,7 @@ First time building a complex agent framework from scratch—had to make sure ag
 📊 Advanced Analytics – Track how different strategies influence voter behavior over time. \
 🎮 Multiplayer Mode – Let multiple users run campaigns and compete for voter influence. \
 📝 AI-Generated Content – Use more advanced AI to create diverse, nuanced political posts. \
-📱 Cross-Platform Deployment – Bring InstaPolitics to mobile using Flutter (yes, I might have to learn Flutter for this 😎). \
+📱 Cross-Platform Deployment – Bring GameOfThrones to mobile using Flutter (yes, we might have to learn Flutter for this 😎). \
 
-## 🎯 Why InstaPolitics Matters
-InstaPolitics isn’t just a game—it’s a political sandbox where students can experiment, analyze, and learn how modern political influence works. Social media has changed politics forever, and InstaPolitics gives you a front-row seat to that transformation.
+## 🎯 Why GameOfThrones Matters
+GameOfThrones isn’t just a game—it’s a political sandbox where students can experiment, analyze, and learn how modern political influence works. Social media has changed politics forever, and GameOfThrones gives you a front-row seat to that transformation.

@@ -24,7 +24,7 @@ const Header = () => {
             </li>
             <li>
               <Link to="/crown-summary" className="font-medieval text-got-black hover:text-got-gold transition-colors">
-                The Crown
+                The Iron Throne
               </Link>
             </li>
           </ul>
